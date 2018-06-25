@@ -29,6 +29,7 @@ function validatePlayer(player) {
 
 // Check if move type inputs are valid
 function validateMoveTypes(moveOneType, moveTwoType, moveThreeType) {
+
   if (validMoveTypes.includes(moveOneType)
   && validMoveTypes.includes(moveTwoType)
   && validMoveTypes.includes(moveThreeType)) {
@@ -40,6 +41,7 @@ function validateMoveTypes(moveOneType, moveTwoType, moveThreeType) {
 
 // Check if move value inputs are valid
 function validateMoveValues(moveOneValue, moveTwoValue, moveThreeValue) {
+
   if (moveOneValue >= 1
     && moveOneValue <= 99
     && moveTwoValue >= 1
@@ -95,4 +97,177 @@ function setPlayerMoves(player, moveOneType, moveOneValue, moveTwoType, moveTwoV
 
   }
 
+}
+
+function getRoundWinner(roundNumber) {
+  switch (roundNumber) {
+    // Determine winner for round 1
+    case 1:
+
+      switch (playerOneMoveOneType) {
+
+        case 'rock':
+          if (playerTwoMoveOneType == 'scissors') {
+            return 'Player One';
+          } else if (playerTwoMoveOneType == 'paper') {
+            return 'Player Two';
+          } else if (playerTwoMoveOneValue < playerOneMoveOneValue) {
+            return 'Player One';
+          } else if (playerTwoMoveOneValue > playerOneMoveOneValue) {
+            return 'Player Two';
+          } else if (playerTwoMoveOneValue === playerOneMoveOneValue) {
+            return 'Tie';
+          } else {
+            return null;
+          }
+
+        case 'paper':
+          if (playerTwoMoveOneType == 'rock') {
+            return 'Player One';
+          } else if (playerTwoMoveOneType == 'scissors') {
+            return 'Player Two';
+          } else if (playerTwoMoveOneValue < playerOneMoveOneValue) {
+            return 'Player One';
+          } else if (playerTwoMoveOneValue > playerOneMoveOneValue) {
+            return 'Player Two';
+          } else if (playerTwoMoveOneValue === playerOneMoveOneValue) {
+            return 'Tie';
+          } else {
+            return null;
+          }
+
+        case 'scissors':
+          if (playerTwoMoveOneType == 'paper') {
+            return 'Player One';
+          } else if (playerTwoMoveOneType == 'rock') {
+            return 'Player Two';
+          } else if (playerTwoMoveOneValue < playerOneMoveOneValue) {
+            return 'Player One';
+          } else if (playerTwoMoveOneValue > playerOneMoveOneValue) {
+            return 'Player Two';
+          } else if (playerTwoMoveOneValue === playerOneMoveOneValue) {
+            return 'Tie';
+          } else {
+            return null;
+          }
+
+        default:
+          return null;
+
+      }
+
+    // Determine winner for round 2
+    case 2:
+
+      switch (playerOneMoveTwoType) {
+
+        case 'rock':
+          if (playerTwoMoveTwoType == 'scissors') {
+            return 'Player One';
+          } else if (playerTwoMoveTwoType == 'paper') {
+            return 'Player Two';
+          } else if (playerTwoMoveTwoValue < playerOneMoveTwoValue) {
+            return 'Player One';
+          } else if (playerTwoMoveTwoValue > playerOneMoveTwoValue) {
+            return 'Player Two';
+          } else if (playerTwoMoveTwoValue === playerOneMoveOneValue) {
+            return 'Tie';
+          } else {
+            return null;
+          }
+
+        case 'paper':
+          if (playerTwoMoveTwoType == 'rock') {
+            return 'Player One';
+          } else if (playerTwoMoveTwoType == 'scissors') {
+            return 'Player Two';
+          } else if (playerTwoMoveTwoValue < playerOneMoveTwoValue) {
+            return 'Player One';
+          } else if (playerTwoMoveTwoValue > playerOneMoveTwoValue) {
+            return 'Player Two';
+          } else if (playerTwoMoveTwoValue === playerOneMoveOneValue) {
+            return 'Tie';
+          } else {
+            return null;
+          }
+
+        case 'scissors':
+          if (playerTwoMoveTwoType == 'paper') {
+            return 'Player One';
+          } else if (playerTwoMoveTwoType == 'rock') {
+            return 'Player Two';
+          } else if (playerTwoMoveTwoValue < playerOneMoveTwoValue) {
+            return 'Player One';
+          } else if (playerTwoMoveTwoValue > playerOneMoveTwoValue) {
+            return 'Player Two';
+          } else if (playerTwoMoveTwoValue === playerOneMoveOneValue) {
+            return 'Tie';
+          } else {
+            return null;
+          }
+
+        default:
+          return null;
+
+      }
+
+    // Determine winner for round 3
+    case 3:
+
+      switch (playerOneMoveThreeType) {
+
+        case 'rock':
+          if (playerTwoMoveThreeType === 'scissors') {
+            return 'Player One';
+          } else if (playerTwoMoveThreeType === 'paper') {
+            return 'Player Two';
+          } else if (playerTwoMoveThreeValue < playerOneMoveThreeValue) {
+            return 'Player One';
+          } else if (playerTwoMoveThreeValue > playerOneMoveThreeValue) {
+            return 'Player Two';
+          } else if (playerTwoMoveThreeValue === playerOneMoveThreeValue) {
+            return 'Tie';
+          } else {
+            return null;
+          }
+
+        case 'paper':
+          if (playerTwoMoveThreeType === 'rock') {
+            return 'Player One';
+          } else if (playerTwoMoveThreeType === 'scissors') {
+            return 'Player Two';
+          } else if (playerTwoMoveThreeValue < playerOneMoveThreeValue) {
+            return 'Player One';
+          } else if (playerTwoMoveThreeValue > playerOneMoveThreeValue) {
+            return 'Player Two';
+          } else if (playerTwoMoveThreeValue === playerOneMoveThreeValue) {
+            return 'Tie';
+          } else {
+            return null;
+          }
+
+        case 'scissors':
+          if (playerTwoMoveThreeType === 'paper') {
+            return 'Player One';
+          } else if (playerTwoMoveThreeType === 'rock') {
+            return 'Player Two';
+          } else if (playerTwoMoveThreeValue < playerOneMoveThreeValue) {
+            return 'Player One';
+          } else if (playerTwoMoveThreeValue > playerOneMoveThreeValue) {
+            return 'Player Two';
+          } else if (playerTwoMoveThreeValue === playerOneMoveThreeValue) {
+            return 'Tie';
+          } else {
+            return null;
+          }
+
+        default:
+          return null;
+
+      }
+
+    default:
+      return null;
+
+  }
 }
