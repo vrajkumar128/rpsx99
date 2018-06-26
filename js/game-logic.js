@@ -163,11 +163,11 @@ function playerOneScissors(roundNumber) {
 function getRoundOneWinner() {
   switch (playerOneMoveOneType) {
     case 'rock':
-      playerOneRock(1);
+      return playerOneRock(1);
     case 'paper':
-      playerOnePaper(1);
+      return playerOnePaper(1);
     case 'scissors':
-      playerOneScissors(1);
+      return playerOneScissors(1);
     default:
       return null;
   }
@@ -177,11 +177,11 @@ function getRoundOneWinner() {
 function getRoundTwoWinner() {
   switch (playerOneMoveTwoType) {
     case 'rock':
-      playerOneRock(2);
+      return playerOneRock(2);
     case 'paper':
-      playerTwoRock(2);
+      return playerOnePaper(2);
     case 'scissors':
-      playerTwoScissors(2);
+      return playerOneScissors(2);
     default:
       return null;
   }
@@ -191,11 +191,11 @@ function getRoundTwoWinner() {
 function getRoundThreeWinner() {
   switch (playerOneMoveThreeType) {
     case 'rock':
-      playerOneRock(3);
+      return playerOneRock(3);
     case 'paper':
-      playerOnePaper(3);
+      return playerOnePaper(3);
     case 'scissors':
-      playerOneScissors(3);
+      return playerOneScissors(3);
     default:
       return null;
   }
@@ -205,12 +205,64 @@ function getRoundThreeWinner() {
 function getRoundWinner(roundNumber) {
   switch (roundNumber) {
     case 1:
-      getRoundOneWinner();
+      return getRoundOneWinner();
     case 2:
-      getRoundTwoWinner();
+      return getRoundTwoWinner();
     case 3:
-      getRoundThreeWinner();
+      return getRoundThreeWinner();
     default:
       return null;
+  }
+}
+
+// Initialize player win counts
+let playerOneWins = 0;
+let playerTwoWins = 0;
+
+// Increment a player's win count for a given round number
+function incrementPlayerWins(roundNumber) {
+  if (getRoundWinner(roundNumber) === 'Player One') {
+    playerOneWins++;
+  } else if (getRoundWinner(roundNumber) === 'Player Two') {
+    playerTwoWins++;
+  }
+}
+
+// Verify that all move types and values are set
+function allValuesSet() {
+  return playerOneMoveOneType
+    && playerOneMoveOneValue
+    && playerOneMoveTwoType
+    && playerOneMoveTwoValue
+    && playerOneMoveThreeType
+    && playerOneMoveThreeValue
+    && playerTwoMoveOneType
+    && playerTwoMoveOneValue
+    && playerTwoMoveTwoType
+    && playerTwoMoveTwoValue
+    && playerTwoMoveThreeType
+    && playerTwoMoveThreeValue;
+}
+
+// Determine the winner of the entire game
+function getGameWinner() {
+  // Reset win counts
+  playerOneWins = 0;
+  playerTwoWins = 0;
+
+  incrementPlayerWins(1);
+  incrementPlayerWins(2);
+  incrementPlayerWins(3);
+
+  if (!allValuesSet()) {
+    return null;
+  } else {
+    if (playerOneWins > playerTwoWins) {
+      return 'Player One';
+    } else if (playerOneWins < playerTwoWins) {
+      return 'Player Two';
+    } else {
+      return 'Tie';
+    }
   }
 }
