@@ -1,5 +1,3 @@
-// All code should be written in this file.
-
 // Map strings to constants (better typo detection)
 const P1 = 'Player One';
 const P2 = 'Player Two';
@@ -13,88 +11,81 @@ const VALID_PLAYERS = [P1, P2];
 const VALID_MOVE_TYPES = [ROCK, PAPER, SCISSORS];
 
 // Initialize global move type and value variables
-let playerOneMoveOneType,
+let playerOneMoveOneType = undefined;
+let playerOneMoveOneValue = undefined;
+let playerOneMoveTwoType = undefined;
+let playerOneMoveTwoValue = undefined;
+let playerOneMoveThreeType = undefined;
+let playerOneMoveThreeValue = undefined;
+let playerTwoMoveOneType = undefined;
+let playerTwoMoveOneValue = undefined;
+let playerTwoMoveTwoType = undefined;
+let playerTwoMoveTwoValue = undefined;
+let playerTwoMoveThreeType = undefined;
+let playerTwoMoveThreeValue = undefined;
+
+// Check if player input is valid
+const validatePlayer = player => {
+  return VALID_PLAYERS.includes(player);
+}
+
+// Check if move type inputs are valid
+const validateMoveTypes = (m1t, m2t, m3t) => {
+  return VALID_MOVE_TYPES.includes(m1t)
+  && VALID_MOVE_TYPES.includes(m2t)
+  && VALID_MOVE_TYPES.includes(m3t);
+}
+
+// Check if move value inputs are valid
+const validateMoveValues = (m1v, m2v, m3v) => {
+  return m1v >= 1 && m1v <= 99 && m2v >= 1 && m2v <= 99 && m3v >= 1 && m3v <= 99 && m1v + m2v + m3v <= 99;
+}
+
+// Set moves for player one
+const setPlayerOneMoves = (m1t, m1v, m2t, m2v, m3t, m3v) => {
+  [playerOneMoveOneType,
   playerOneMoveOneValue,
   playerOneMoveTwoType,
   playerOneMoveTwoValue,
   playerOneMoveThreeType,
-  playerOneMoveThreeValue,
-  playerTwoMoveOneType,
+  playerOneMoveThreeValue] = [m1t, m1v, m2t, m2v, m3t, m3v];
+}
+
+// Set moves for player two
+const setPlayerTwoMoves = (m1t, m1v, m2t, m2v, m3t, m3v) => {
+  [playerTwoMoveOneType,
   playerTwoMoveOneValue,
   playerTwoMoveTwoType,
   playerTwoMoveTwoValue,
   playerTwoMoveThreeType,
-  playerTwoMoveThreeValue = undefined;
-
-// Check if player input is valid
-const validatePlayer = player => {
-  return VALID_PLAYERS.includes(String(player));
-}
-
-// Check if move type inputs are valid
-const validateMoveTypes = (moveOneType, moveTwoType, moveThreeType) => {
-  return VALID_MOVE_TYPES.includes(moveOneType)
-  && VALID_MOVE_TYPES.includes(moveTwoType)
-  && VALID_MOVE_TYPES.includes(moveThreeType);
-}
-
-// Check if move value inputs are valid
-const validateMoveValues = (moveOneValue, moveTwoValue, moveThreeValue) => {
-  return moveOneValue >= 1
-    && moveOneValue <= 99
-    && moveTwoValue >= 1
-    && moveTwoValue <= 99
-    && moveThreeValue >= 1
-    && moveThreeValue <= 99
-    && moveOneValue + moveTwoValue + moveThreeValue <= 99;
-}
-
-// Set moves for player one
-function setPlayerOneMoves(moveOneType, moveOneValue, moveTwoType, moveTwoValue, moveThreeType, moveThreeValue) {
-  playerOneMoveOneType = moveOneType;
-  playerOneMoveOneValue = moveOneValue;
-
-  playerOneMoveTwoType = moveTwoType;
-  playerOneMoveTwoValue = moveTwoValue;
-
-  playerOneMoveThreeType = moveThreeType;
-  playerOneMoveThreeValue = moveThreeValue;
-}
-
-// Set moves for player two
-function setPlayerTwoMoves(moveOneType, moveOneValue, moveTwoType, moveTwoValue, moveThreeType, moveThreeValue) {
-  playerTwoMoveOneType = moveOneType;
-  playerTwoMoveOneValue = moveOneValue;
-
-  playerTwoMoveTwoType = moveTwoType;
-  playerTwoMoveTwoValue = moveTwoValue;
-
-  playerTwoMoveThreeType = moveThreeType;
-  playerTwoMoveThreeValue = moveThreeValue;
+  playerTwoMoveThreeValue] = [m1t, m1v, m2t, m2v, m3t, m3v];
 }
 
 // Set values for the move and type variables
-function setPlayerMoves(player, moveOneType, moveOneValue, moveTwoType, moveTwoValue, moveThreeType, moveThreeValue) {
-  const [firstMoveType, secondMoveType, thirdMoveType] = [String(moveOneType).toLowerCase(),
-    String(moveTwoType).toLowerCase(),
-    String(moveThreeType).toLowerCase()];
+const setPlayerMoves = (player, m1t, m1v, m2t, m2v, m3t, m3v) => {
+  const [firstMoveType, secondMoveType, thirdMoveType] = [String(m1t).toLowerCase(),
+    String(m2t).toLowerCase(),
+    String(m3t).toLowerCase()];
 
   if (validatePlayer(player)
   && validateMoveTypes(firstMoveType, secondMoveType, thirdMoveType)
-  && validateMoveValues(moveOneValue, moveTwoValue, moveThreeValue)) {
+  && validateMoveValues(m1v, m2v, m3v)) {
 
-    if (String(player) === P1) {
-      setPlayerOneMoves(firstMoveType, moveOneValue, secondMoveType, moveTwoValue, thirdMoveType, moveThreeValue);
+    if (player === P1) {
+      setPlayerOneMoves(firstMoveType, m1v, secondMoveType, m2v, thirdMoveType, m3v);
     } else {
-      setPlayerTwoMoves(firstMoveType, moveOneValue, secondMoveType, moveTwoValue, thirdMoveType, moveThreeValue);
+      setPlayerTwoMoves(firstMoveType, m1v, secondMoveType, m2v, thirdMoveType, m3v);
     }
   }
 }
 
-// Initialize shorthand variables
-let playerOneType, playerOneValue, playerTwoType, playerTwoValue = undefined;
+// Initialize reference variables
+let playerOneType = undefined;
+let playerOneValue = undefined;
+let playerTwoType = undefined;
+let playerTwoValue = undefined;
 
-function setShorthandVariables(roundNumber) {
+const setReferenceVariables = roundNumber => {
   if (roundNumber === 1) {
     [playerOneType, playerOneValue] = [playerOneMoveOneType, playerOneMoveOneValue];
     [playerTwoType, playerTwoValue] = [playerTwoMoveOneType, playerTwoMoveOneValue];
@@ -111,8 +102,8 @@ function setShorthandVariables(roundNumber) {
 }
 
 // Determine winner for a given round when player one chooses rock
-function playerOneRock(roundNumber) {
-  setShorthandVariables(roundNumber);
+const playerOneRock = roundNumber => {
+  setReferenceVariables(roundNumber);
 
   if (playerTwoType === SCISSORS) {
     return P1;
@@ -130,8 +121,8 @@ function playerOneRock(roundNumber) {
 }
 
 // Determine winner for a given round when player one chooses paper
-function playerOnePaper(roundNumber) {
-  setShorthandVariables(roundNumber);
+const playerOnePaper = roundNumber => {
+  setReferenceVariables(roundNumber);
 
   if (playerTwoType === ROCK) {
     return P1;
@@ -149,8 +140,8 @@ function playerOnePaper(roundNumber) {
 }
 
 // Determine winner for a given round when player one chooses scissors
-function playerOneScissors(roundNumber) {
-  setShorthandVariables(roundNumber);
+const playerOneScissors = roundNumber => {
+  setReferenceVariables(roundNumber);
 
   if (playerTwoType === PAPER) {
     return P1;
@@ -168,7 +159,7 @@ function playerOneScissors(roundNumber) {
 }
 
 // Determine winner of round one
-function getRoundOneWinner() {
+const getRoundOneWinner = () => {
   switch (playerOneMoveOneType) {
     case ROCK:
       return playerOneRock(1);
@@ -182,7 +173,7 @@ function getRoundOneWinner() {
 }
 
 // Determine winner of round two
-function getRoundTwoWinner() {
+const getRoundTwoWinner = () => {
   switch (playerOneMoveTwoType) {
     case ROCK:
       return playerOneRock(2);
@@ -196,7 +187,7 @@ function getRoundTwoWinner() {
 }
 
 // Determine winner of round three
-function getRoundThreeWinner() {
+const getRoundThreeWinner = () => {
   switch (playerOneMoveThreeType) {
     case ROCK:
       return playerOneRock(3);
@@ -210,7 +201,7 @@ function getRoundThreeWinner() {
 }
 
 // Determine the winner for a given round number
-function getRoundWinner(roundNumber) {
+const getRoundWinner = roundNumber => {
   switch (roundNumber) {
     case 1:
       return getRoundOneWinner();
@@ -227,17 +218,17 @@ function getRoundWinner(roundNumber) {
 let playerOneWins = 0;
 let playerTwoWins = 0;
 
-// Increment a player's win count for a given round number
-function incrementPlayerWins(roundNumber) {
+// Increment a player's win count after a given round number
+const incrementPlayerWins = roundNumber => {
   if (getRoundWinner(roundNumber) === P1) {
-    playerOneWins++;
+    playerOneWins += 1;
   } else if (getRoundWinner(roundNumber) === P2) {
-    playerTwoWins++;
+    playerTwoWins += 1;
   }
 }
 
 // Verify that all move types and values are set
-function allValuesSet() {
+const allValuesSet = () => {
   return playerOneMoveOneType
     && playerOneMoveOneValue
     && playerOneMoveTwoType
@@ -253,7 +244,7 @@ function allValuesSet() {
 }
 
 // Determine the winner of the entire game
-function getGameWinner() {
+const getGameWinner = () => {
   // Reset win counts
   playerOneWins = 0;
   playerTwoWins = 0;
@@ -275,19 +266,21 @@ function getGameWinner() {
   }
 }
 
+// Generate a random move type
+const generateRandomMoveType = () => {
+  const randomIndex = Math.floor(Math.random() * VALID_MOVE_TYPES.length);
+  return VALID_MOVE_TYPES[randomIndex];
+}
+
 // Randomly generate player two's moves
-function setComputerMoves() {
-  const RANDOM_INDEX_1 = Math.floor(Math.random() * VALID_MOVE_TYPES.length);
-  const RANDOM_INDEX_2 = Math.floor(Math.random() * VALID_MOVE_TYPES.length);
-  const RANDOM_INDEX_3 = Math.floor(Math.random() * VALID_MOVE_TYPES.length);
+const setComputerMoves = () => {
+  const randomM1t = generateRandomMoveType();
+  const randomM2t = generateRandomMoveType();
+  const randomM3t = generateRandomMoveType();
 
-  const RANDOM_M1T = VALID_MOVE_TYPES[RANDOM_INDEX_1];
-  const RANDOM_M2T = VALID_MOVE_TYPES[RANDOM_INDEX_2];
-  const RANDOM_M3T = VALID_MOVE_TYPES[RANDOM_INDEX_3];
+  const randomM1v = Math.floor(Math.random() * 97) + 1;
+  const randomM2v = Math.floor(Math.random() * (98 - randomM1v)) + 1;
+  const randomM3v = 99 - randomM1v - randomM2v;
 
-  const RANDOM_M1V = Math.floor(Math.random() * 99);
-  const RANDOM_M2V = Math.floor(Math.random() * (99 - RANDOM_M1V));
-  const RANDOM_M3V = 99 - RANDOM_M1V - RANDOM_M2V;
-
-  setPlayerMoves('Player Two', RANDOM_M1T, RANDOM_M1V, RANDOM_M2T, RANDOM_M2V, RANDOM_M3T, RANDOM_M3V);
+  setPlayerMoves(P2, randomM1t, randomM1v, randomM2t, randomM2v, randomM3t, randomM3v);
 }
